@@ -27,7 +27,6 @@ public class MesTicketsController {
     }
 
     private void loadData() {
-        // On récupère uniquement les tickets de CE client
         mesDonnees.setAll(reservationDAO.listerMesTickets(clientConnecte.getIdClient()));
         view.getTable().setItems(mesDonnees);
     }
@@ -38,10 +37,10 @@ public class MesTicketsController {
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
             confirm.setHeaderText(null);
             confirm.setContentText("Voulez-vous vraiment annuler votre réservation pour " + selected.getTitreFilm() + " ?");
-            
+
             if (confirm.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
-                if(reservationDAO.supprimerReservation(selected.getIdReservation())) {
-                    loadData(); // Rafraîchit le tableau
+                if (reservationDAO.supprimerReservation(selected.getIdReservation())) {
+                    loadData();
                     showAlert(Alert.AlertType.INFORMATION, "Succès", "Votre réservation a été annulée.");
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'annuler cette réservation.");
@@ -54,6 +53,9 @@ public class MesTicketsController {
 
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
-        alert.setHeaderText(null); alert.setTitle(title); alert.setContentText(content); alert.showAndWait();
+        alert.setHeaderText(null);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
