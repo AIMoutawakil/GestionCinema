@@ -1,3 +1,4 @@
+```java
 package com.cinema.view;
 
 import com.cinema.controller.LoginController;
@@ -46,14 +47,13 @@ public class LoginView {
 
         adminLink = new Button("Espace Administrateur");
         adminLink.getStyleClass().add("link-button");
-        adminLink.setStyle("-fx-text-fill: #70a1ff; -fx-font-size: 10px;"); // Style un peu plus discret
+        adminLink.setStyle("-fx-text-fill: #70a1ff; -fx-font-size: 10px;");
 
         formCard.getChildren().addAll(titleLabel, emailField, passwordField, loginButton, registerLink, adminLink);
         root.getChildren().add(formCard);
 
         LoginController controller = new LoginController(this, stage);
-        
-        // Actions
+
         loginButton.setOnAction(e -> controller.handleLogin());
         registerLink.setOnAction(e -> controller.navigateToRegister());
         adminLink.setOnAction(e -> controller.handleAdminAccess());
@@ -63,3 +63,4 @@ public class LoginView {
     public String getEmail() { return emailField.getText(); }
     public String getPassword() { return passwordField.getText(); }
 }
+```
