@@ -10,12 +10,12 @@ import javafx.scene.layout.*;
 
 public class BilanView {
     private VBox root;
-    
+
     private Label lblTotalTickets;
     private Label lblChiffreAffaires;
     private Label lblTotalFilms;
     private Label lblTotalClients;
-    
+
     private BarChart<String, Number> barChart;
 
     public BilanView() {
@@ -43,30 +43,27 @@ public class BilanView {
 
         kpiContainer.getChildren().addAll(cardTickets, cardRevenus, cardFilms, cardClients);
 
-      
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Films");
-        
+
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Nombre de places vendues");
 
         barChart = new BarChart<>(xAxis, yAxis);
         barChart.setTitle("Top 4 des Films les plus populaires");
-        barChart.setLegendVisible(false); 
-        VBox.setVgrow(barChart, Priority.ALWAYS); 
+        barChart.setLegendVisible(false);
+        VBox.setVgrow(barChart, Priority.ALWAYS);
 
         root.getChildren().addAll(titleLabel, kpiContainer, barChart);
     }
 
- 
     private VBox createKpiCard(String title, String icon, String color) {
         VBox card = new VBox(10);
         card.setAlignment(Pos.CENTER);
         card.setPadding(new Insets(20));
         card.setStyle("-fx-background-color: white; -fx-background-radius: 15px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);");
-        
-        
-        HBox.setHgrow(card, Priority.ALWAYS); 
+
+        HBox.setHgrow(card, Priority.ALWAYS);
 
         Label iconLabel = new Label(icon);
         iconLabel.setStyle("-fx-font-size: 30px;");
