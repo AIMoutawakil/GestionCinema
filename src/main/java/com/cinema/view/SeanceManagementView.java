@@ -16,7 +16,7 @@ public class SeanceManagementView {
 
     public SeanceManagementView() {
         root = new VBox(20);
-        root.getStyleClass().add("crud-card"); 
+        root.getStyleClass().add("crud-card");
 
         Label titleLabel = new Label("Planning des Séances");
         titleLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: #16a085; -fx-font-weight: bold;");
@@ -47,16 +47,15 @@ public class SeanceManagementView {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         VBox.setVgrow(table, Priority.ALWAYS);
 
-        // --- COLONNES DU TABLEAU ---
         TableColumn<Seance, Integer> colId = new TableColumn<>("ID");
         colId.setCellValueFactory(new PropertyValueFactory<>("idSeance"));
         colId.setMaxWidth(50);
 
         TableColumn<Seance, String> colFilm = new TableColumn<>("Film");
-        colFilm.setCellValueFactory(new PropertyValueFactory<>("titreFilm")); // Utilise le nom récupéré par la jointure SQL
+        colFilm.setCellValueFactory(new PropertyValueFactory<>("titreFilm"));
 
         TableColumn<Seance, String> colSalle = new TableColumn<>("Salle");
-        colSalle.setCellValueFactory(new PropertyValueFactory<>("nomSalle")); // Utilise le nom récupéré par la jointure SQL
+        colSalle.setCellValueFactory(new PropertyValueFactory<>("nomSalle"));
 
         TableColumn<Seance, LocalDate> colDate = new TableColumn<>("Date");
         colDate.setCellValueFactory(new PropertyValueFactory<>("dateProjection"));
