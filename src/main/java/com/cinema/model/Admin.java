@@ -7,10 +7,10 @@ public class Admin {
     private String email;
     private String motDePasse;
 
-    // Constructeur vide
+
     public Admin() {}
 
-    // Constructeur sans ID (pour l'insertion en base)
+  
     public Admin(String nom, String prenom, String email, String motDePasse) {
         this.nom = nom;
         this.prenom = prenom;
@@ -18,7 +18,7 @@ public class Admin {
         this.motDePasse = motDePasse;
     }
 
-    // Constructeur avec ID (pour la récupération depuis la base)
+    
     public Admin(int idAdmin, String nom, String prenom, String email, String motDePasse) {
         this.idAdmin = idAdmin;
         this.nom = nom;
