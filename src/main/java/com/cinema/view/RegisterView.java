@@ -19,9 +19,9 @@ public class RegisterView {
 
     public RegisterView(Stage stage) {
         root = new StackPane();
-        root.getStyleClass().add("login-root"); // On réutilise le même fond d'écran
+        root.getStyleClass().add("login-root");
 
-        VBox formCard = new VBox(15); // Espacement légèrement réduit pour faire tenir tous les champs
+        VBox formCard = new VBox(15);
         formCard.getStyleClass().add("form-card");
         formCard.setMaxWidth(350);
         formCard.setAlignment(Pos.CENTER);
