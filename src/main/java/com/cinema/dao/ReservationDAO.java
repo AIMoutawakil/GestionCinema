@@ -27,7 +27,6 @@ public class ReservationDAO {
         }
     }
 
- // --- LISTER LES BILLETS D'UN CLIENT SPÉCIFIQUE ---
     public List<Reservation> listerMesTickets(int idClient) {
         List<Reservation> reservations = new ArrayList<>();
         String sql = "SELECT r.id_reservation, r.id_client, r.id_seance, r.date_reservation, r.nombre_places, r.statut, " +
@@ -64,7 +63,6 @@ public class ReservationDAO {
         return reservations;
     }
 
-    // --- NOUVEAU : LISTER TOUTES LES RÉSERVATIONS (Vue Admin) ---
     public List<Reservation> listerReservations() {
         List<Reservation> reservations = new ArrayList<>();
         String sql = "SELECT r.id_reservation, r.id_client, r.id_seance, r.date_reservation, r.nombre_places, r.statut, " +
@@ -98,7 +96,6 @@ public class ReservationDAO {
         return reservations;
     }
 
-    // --- NOUVEAU : ANNULER/SUPPRIMER UNE RÉSERVATION ---
     public boolean supprimerReservation(int idReservation) {
         String sql = "DELETE FROM Reservation WHERE id_reservation = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
