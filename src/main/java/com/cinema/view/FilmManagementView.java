@@ -17,14 +17,11 @@ public class FilmManagementView {
 
     public FilmManagementView() {
         root = new VBox(20);
-        // On utilise la classe CSS créée précédemment pour la boîte blanche sur fond rouge
-        root.getStyleClass().add("crud-card"); 
-        
-        // --- EN-TÊTE (Titre) ---
+        root.getStyleClass().add("crud-card");
+
         Label titleLabel = new Label("Gestion des Films");
         titleLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: #16a085; -fx-font-weight: bold;");
 
-        // --- BARRE D'OUTILS (Recherche + Boutons) ---
         HBox toolbar = new HBox(15);
         toolbar.setAlignment(Pos.CENTER_LEFT);
 
@@ -33,7 +30,6 @@ public class FilmManagementView {
         searchField.setPrefWidth(250);
         searchField.setStyle("-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-padding: 8px 15px;");
 
-        // Un espaceur flexible pour pousser les boutons tout à droite
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
@@ -48,12 +44,10 @@ public class FilmManagementView {
 
         toolbar.getChildren().addAll(searchField, spacer, btnEdit, btnDelete, btnAdd);
 
-        // --- TABLEAU (TableView) ---
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        VBox.setVgrow(table, Priority.ALWAYS); // Le tableau prendra tout l'espace restant en hauteur
+        VBox.setVgrow(table, Priority.ALWAYS);
 
-        // Création des colonnes (les noms entre guillemets doivent correspondre exactement aux attributs de la classe Film)
         TableColumn<Film, Integer> colId = new TableColumn<>("ID");
         colId.setCellValueFactory(new PropertyValueFactory<>("idFilm"));
         colId.setMaxWidth(50);
@@ -72,7 +66,6 @@ public class FilmManagementView {
 
         table.getColumns().addAll(colId, colTitre, colGenre, colDuree, colRealisateur);
 
-        // Ajout de tous les éléments à la racine
         root.getChildren().addAll(titleLabel, toolbar, table);
     }
 
