@@ -19,46 +19,40 @@ public class SalleManagementController {
 
     public SalleManagementController(SalleManagementView view) {
         this.view = view;
-        this.salleDAO = new SalleDAO(); // Assure-toi que ta classe SalleDAO existe
+        this.salleDAO = new SalleDAO();
         this.masterData = FXCollections.observableArrayList();
 
-        // Initialisation
         loadData();
         setupSearchFilter();
 
-        // Clics sur les boutons
         view.getBtnAdd().setOnAction(e -> handleAdd());
         view.getBtnEdit().setOnAction(e -> handleEdit());
         view.getBtnDelete().setOnAction(e -> handleDelete());
     }
 
-    // --- CHARGEMENT DES DONNÉES ---
     private void loadData() {
         masterData.setAll(salleDAO.listerSalles());
     }
 
-    // --- BARRE DE RECHERCHE ---
     private void setupSearchFilter() {
         FilteredList<Salle> filteredData = new FilteredList<>(masterData, p -> true);
-        
+
         view.getSearchField().textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(salle -> {
                 if (newValue == null || newValue.isEmpty()) return true;
-                
+
                 String lowerCaseFilter = newValue.toLowerCase();
-                
-                // CORRECTION ICI : Utilisation de getTechnologie()
-                return salle.getNomSalle().toLowerCase().contains(lowerCaseFilter) || 
+
+                return salle.getNomSalle().toLowerCase().contains(lowerCaseFilter) ||
                        salle.getTechnologie().toLowerCase().contains(lowerCaseFilter);
             });
         });
-        
+
         SortedList<Salle> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(view.getTable().comparatorProperty());
         view.getTable().setItems(sortedData);
     }
 
-    // --- AJOUTER ---
     private void handleAdd() {
         Optional<Salle> result = showSalleFormDialog(null);
         result.ifPresent(nouvelleSalle -> {
@@ -71,13 +65,12 @@ public class SalleManagementController {
         });
     }
 
-    // --- MODIFIER ---
     private void handleEdit() {
         Salle selectedSalle = view.getTable().getSelectionModel().getSelectedItem();
         if (selectedSalle != null) {
             Optional<Salle> result = showSalleFormDialog(selectedSalle);
             result.ifPresent(salleModifiee -> {
-                salleModifiee.setIdSalle(selectedSalle.getIdSalle()); 
+                salleModifiee.setIdSalle(selectedSalle.getIdSalle());
                 if (salleDAO.modifierSalle(salleModifiee)) {
                     loadData();
                     showAlert(Alert.AlertType.INFORMATION, "Succès", "La salle a été modifiée.");
@@ -90,7 +83,6 @@ public class SalleManagementController {
         }
     }
 
-    // --- SUPPRIMER ---
     private void handleDelete() {
         Salle selectedSalle = view.getTable().getSelectionModel().getSelectedItem();
         if (selectedSalle != null) {
@@ -98,9 +90,9 @@ public class SalleManagementController {
             confirm.setTitle("Confirmation");
             confirm.setHeaderText(null);
             confirm.setContentText("Êtes-vous sûr de vouloir supprimer la salle : " + selectedSalle.getNomSalle() + " ?");
-            
+
             if (confirm.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
-                if(salleDAO.supprimerSalle(selectedSalle.getIdSalle())) {
+                if (salleDAO.supprimerSalle(selectedSalle.getIdSalle())) {
                     loadData();
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Erreur", "La suppression a échoué.");
@@ -111,30 +103,26 @@ public class SalleManagementController {
         }
     }
 
-    // --- LE FORMULAIRE POP-UP (Même design que le Login) ---
     private Optional<Salle> showSalleFormDialog(Salle salleToEdit) {
         Dialog<Salle> dialog = new Dialog<>();
         dialog.setTitle(salleToEdit == null ? "Ajouter une salle" : "Modifier la salle");
         DialogPane dialogPane = dialog.getDialogPane();
-        
-        // Chargement du CSS
-        try { 
-            dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm()); 
-        } catch (Exception e) {}
-        
-        dialogPane.getStyleClass().add("form-card"); 
 
-        // Boutons
+        try {
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        } catch (Exception e) {}
+
+        dialogPane.getStyleClass().add("form-card");
+
         ButtonType saveBtnType = new ButtonType("Sauvegarder", ButtonBar.ButtonData.OK_DONE);
         dialogPane.getButtonTypes().addAll(saveBtnType, ButtonType.CANCEL);
-        
+
         Button saveButton = (Button) dialogPane.lookupButton(saveBtnType);
         saveButton.getStyleClass().add("login-button");
-        
+
         Button cancelButton = (Button) dialogPane.lookupButton(ButtonType.CANCEL);
         cancelButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #a4b0be; -fx-cursor: hand; -fx-font-weight: bold;");
 
-        // Champs de saisie
         VBox vbox = new VBox(15);
         vbox.setAlignment(javafx.geometry.Pos.CENTER);
         vbox.setPadding(new Insets(20, 30, 20, 30));
@@ -150,33 +138,27 @@ public class SalleManagementController {
         capacite.setPromptText("Capacité (nombre de sièges)");
         capacite.getStyleClass().add("input-field");
 
-        // Liste déroulante pour la technologie
         ComboBox<String> typeEcranBox = new ComboBox<>();
         typeEcranBox.getItems().addAll("Standard", "3D", "IMAX", "4DX", "Dolby Cinema");
         typeEcranBox.setPromptText("Technologie");
         typeEcranBox.getStyleClass().add("input-field");
         typeEcranBox.setMaxWidth(Double.MAX_VALUE);
 
-        // Pré-remplissage
         if (salleToEdit != null) {
             nom.setText(salleToEdit.getNomSalle());
             capacite.setText(String.valueOf(salleToEdit.getCapacite()));
-            
-            // CORRECTION ICI : Utilisation de getTechnologie()
-            typeEcranBox.setValue(salleToEdit.getTechnologie()); 
+            typeEcranBox.setValue(salleToEdit.getTechnologie());
         }
 
         vbox.getChildren().addAll(titleLabel, nom, capacite, typeEcranBox);
         dialogPane.setContent(vbox);
 
-        // Validation du formulaire
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == saveBtnType) {
                 try {
                     int cap = Integer.parseInt(capacite.getText());
                     String tech = typeEcranBox.getValue() != null ? typeEcranBox.getValue() : "Standard";
-                    
-                    // Création de l'objet Salle
+
                     return new Salle(nom.getText(), cap, tech);
                 } catch (NumberFormatException e) {
                     showAlert(Alert.AlertType.ERROR, "Erreur de saisie", "La capacité doit être un nombre entier.");
@@ -191,9 +173,9 @@ public class SalleManagementController {
 
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
-        alert.setHeaderText(null); 
-        alert.setTitle(title); 
-        alert.setContentText(content); 
+        alert.setHeaderText(null);
+        alert.setTitle(title);
+        alert.setContentText(content);
         alert.showAndWait();
     }
 }
