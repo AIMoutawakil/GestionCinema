@@ -15,7 +15,6 @@ public class SalleDAO {
         this.connection = DatabaseConnection.getConnection();
     }
 
-    // --- AJOUTER UNE SALLE (Create) ---
     public boolean ajouterSalle(Salle salle) {
         String sql = "INSERT INTO Salle (nom_salle, capacite, technologie) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -29,7 +28,6 @@ public class SalleDAO {
         }
     }
 
-    // --- LISTER LES SALLES (Read) ---
     public List<Salle> listerSalles() {
         List<Salle> salles = new ArrayList<>();
         String sql = "SELECT * FROM Salle";
@@ -49,7 +47,6 @@ public class SalleDAO {
         return salles;
     }
 
-    // --- MODIFIER UNE SALLE (Update) - NOUVEAU ---
     public boolean modifierSalle(Salle salle) {
         String sql = "UPDATE Salle SET nom_salle = ?, capacite = ?, technologie = ? WHERE id_salle = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -64,7 +61,6 @@ public class SalleDAO {
         }
     }
 
-    // --- SUPPRIMER UNE SALLE (Delete) - NOUVEAU ---
     public boolean supprimerSalle(int idSalle) {
         String sql = "DELETE FROM Salle WHERE id_salle = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
