@@ -8,7 +8,6 @@ public class TestConnection {
     public static void main(String[] args) {
         System.out.println("Lancement du test de connexion à PostgreSQL...");
         
-        // Appel de notre méthode Singleton
         Connection conn = DatabaseConnection.getConnection();
         
         if (conn != null) {
