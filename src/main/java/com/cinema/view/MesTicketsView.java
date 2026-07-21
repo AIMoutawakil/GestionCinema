@@ -14,7 +14,7 @@ public class MesTicketsView {
 
     public MesTicketsView() {
         root = new VBox(20);
-        root.getStyleClass().add("crud-card"); // Fond blanc semi-transparent
+        root.getStyleClass().add("crud-card");
 
         Label titleLabel = new Label("Mes Réservations");
         titleLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: #16a085; -fx-font-weight: bold;");
