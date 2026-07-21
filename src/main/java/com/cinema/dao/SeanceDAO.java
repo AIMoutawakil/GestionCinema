@@ -12,7 +12,6 @@ public class SeanceDAO {
         this.connection = DatabaseConnection.getConnection();
     }
 
-    // --- AJOUTER UNE SÉANCE ---
     public boolean ajouterSeance(Seance seance) {
         String sql = "INSERT INTO seance (id_film, id_salle, date_projection, heure_debut, tarif) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -28,7 +27,6 @@ public class SeanceDAO {
         }
     }
 
- // --- NOUVEAU : RÉCUPÉRER LES SÉANCES D'UN FILM PRÉCIS ---
     public List<Seance> listerSeancesParFilm(int idFilm) {
         List<Seance> seances = new ArrayList<>();
         String sql = "SELECT s.id_seance, s.id_film, s.id_salle, s.date_projection, s.heure_debut, s.tarif, " +
@@ -62,7 +60,6 @@ public class SeanceDAO {
     }
     public List<Seance> listerSeances() {
         List<Seance> seances = new ArrayList<>();
-        // Requête avec INNER JOIN pour récupérer les informations liées
         String sql = "SELECT s.id_seance, s.id_film, s.id_salle, s.date_projection, s.heure_debut, s.tarif, " +
                      "f.titre AS titre_film, sa.nom_salle " +
                      "FROM seance s " +
@@ -89,7 +86,6 @@ public class SeanceDAO {
         return seances;
     }
 
-    // --- MODIFIER UNE SÉANCE ---
     public boolean modifierSeance(Seance seance) {
         String sql = "UPDATE seance SET id_film = ?, id_salle = ?, date_projection = ?, heure_debut = ?, tarif = ? WHERE id_seance = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -106,7 +102,6 @@ public class SeanceDAO {
         }
     }
 
-    // --- SUPPRIMER UNE SÉANCE ---
     public boolean supprimerSeance(int idSeance) {
         String sql = "DELETE FROM seance WHERE id_seance = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
