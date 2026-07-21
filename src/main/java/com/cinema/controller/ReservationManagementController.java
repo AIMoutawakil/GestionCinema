@@ -36,10 +36,11 @@ public class ReservationManagementController {
             filteredData.setPredicate(res -> {
                 if (newValue == null || newValue.isEmpty()) return true;
                 String filter = newValue.toLowerCase();
-                return res.getNomClient().toLowerCase().contains(filter) || 
+                return res.getNomClient().toLowerCase().contains(filter) ||
                        res.getTitreFilm().toLowerCase().contains(filter);
             });
         });
+
         SortedList<Reservation> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(view.getTable().comparatorProperty());
         view.getTable().setItems(sortedData);
@@ -51,8 +52,9 @@ public class ReservationManagementController {
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
             confirm.setHeaderText(null);
             confirm.setContentText("Voulez-vous vraiment annuler la réservation de " + selected.getNomClient() + " ?");
+
             if (confirm.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
-                if(reservationDAO.supprimerReservation(selected.getIdReservation())) {
+                if (reservationDAO.supprimerReservation(selected.getIdReservation())) {
                     loadData();
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'annuler la réservation.");
@@ -65,6 +67,9 @@ public class ReservationManagementController {
 
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
-        alert.setHeaderText(null); alert.setTitle(title); alert.setContentText(content); alert.showAndWait();
+        alert.setHeaderText(null);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
