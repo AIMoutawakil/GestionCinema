@@ -14,13 +14,11 @@ public class SalleManagementView {
 
     public SalleManagementView() {
         root = new VBox(20);
-        root.getStyleClass().add("crud-card"); // Fond blanc semi-transparent
+        root.getStyleClass().add("crud-card");
 
-        // Titre
         Label titleLabel = new Label("Gestion des Salles");
         titleLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: #16a085; -fx-font-weight: bold;");
 
-        // Barre d'outils
         HBox toolbar = new HBox(15);
         toolbar.setAlignment(Pos.CENTER_LEFT);
 
@@ -43,12 +41,10 @@ public class SalleManagementView {
 
         toolbar.getChildren().addAll(searchField, spacer, btnEdit, btnDelete, btnAdd);
 
-        // Tableau
         table = new TableView<>();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         VBox.setVgrow(table, Priority.ALWAYS);
 
-        // Colonnes du tableau (liées aux attributs de ta classe Salle)
         TableColumn<Salle, Integer> colId = new TableColumn<>("ID");
         colId.setCellValueFactory(new PropertyValueFactory<>("idSalle"));
         colId.setMaxWidth(50);
@@ -59,7 +55,6 @@ public class SalleManagementView {
         TableColumn<Salle, Integer> colCapacite = new TableColumn<>("Capacité (Sièges)");
         colCapacite.setCellValueFactory(new PropertyValueFactory<>("capacite"));
 
-        // CORRECTION ICI : Utilisation de "technologie"
         TableColumn<Salle, String> colType = new TableColumn<>("Technologie");
         colType.setCellValueFactory(new PropertyValueFactory<>("technologie"));
 
@@ -68,7 +63,6 @@ public class SalleManagementView {
         root.getChildren().addAll(titleLabel, toolbar, table);
     }
 
-    // --- GETTERS POUR LE CONTRÔLEUR ---
     public VBox getView() { return root; }
     public TableView<Salle> getTable() { return table; }
     public Button getBtnAdd() { return btnAdd; }
