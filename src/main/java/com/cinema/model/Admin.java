@@ -10,7 +10,7 @@ public class Admin {
 
     public Admin() {}
 
-  
+
     public Admin(String nom, String prenom, String email, String motDePasse) {
         this.nom = nom;
         this.prenom = prenom;
