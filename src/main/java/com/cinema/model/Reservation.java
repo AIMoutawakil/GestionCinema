@@ -10,14 +10,12 @@ public class Reservation {
     private int nombrePlaces;
     private String statut; 
 
-    // --- ATTRIBUTS SUPPLÉMENTAIRES POUR L'AFFICHAGE (Admin) ---
     private String nomClient;
     private String titreFilm;
     private LocalDateTime dateSeance;
 
     public Reservation() {}
 
-    // Constructeur pour l'insertion (Client)
     public Reservation(int idClient, int idSeance, int nombrePlaces, String statut) {
         this.idClient = idClient;
         this.idSeance = idSeance;
@@ -25,7 +23,6 @@ public class Reservation {
         this.statut = statut;
     }
 
-    // Constructeur basique (Base de données)
     public Reservation(int idReservation, int idClient, int idSeance, LocalDateTime dateReservation, int nombrePlaces, String statut) {
         this.idReservation = idReservation;
         this.idClient = idClient;
@@ -35,7 +32,6 @@ public class Reservation {
         this.statut = statut;
     }
 
-    // NOUVEAU : Constructeur complet avec les jointures pour l'affichage (Admin)
     public Reservation(int idReservation, int idClient, int idSeance, LocalDateTime dateReservation, int nombrePlaces, String statut, String nomClient, String titreFilm, LocalDateTime dateSeance) {
         this.idReservation = idReservation;
         this.idClient = idClient;
@@ -48,7 +44,6 @@ public class Reservation {
         this.dateSeance = dateSeance;
     }
 
-    // --- GETTERS & SETTERS EXISTANTS ---
     public int getIdReservation() { return idReservation; }
     public void setIdReservation(int idReservation) { this.idReservation = idReservation; }
 
@@ -67,7 +62,6 @@ public class Reservation {
     public String getStatut() { return statut; }
     public void setStatut(String statut) { this.statut = statut; }
 
-    // --- NOUVEAUX GETTERS & SETTERS POUR L'AFFICHAGE ---
     public String getNomClient() { return nomClient; }
     public void setNomClient(String nomClient) { this.nomClient = nomClient; }
 
