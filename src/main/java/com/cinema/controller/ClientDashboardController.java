@@ -29,7 +29,6 @@ public class ClientDashboardController {
     public void loadMesReservations() {
         view.getContentArea().getChildren().clear();
         
-        // On instancie la vue et le contrôleur en passant le client connecté
         com.cinema.view.MesTicketsView ticketsView = new com.cinema.view.MesTicketsView();
         new com.cinema.controller.MesTicketsController(ticketsView, clientConnecte);
         
