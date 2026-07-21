@@ -14,7 +14,6 @@ public class StatistiquesDAO {
         this.connection = DatabaseConnection.getConnection();
     }
 
-    // 1. Total des tickets vendus (uniquement les réservations confirmées)
     public int getTotalTicketsVendus() {
         String sql = "SELECT SUM(nombre_places) AS total FROM Reservation WHERE statut = 'Confirmée'";
         try (PreparedStatement stmt = connection.prepareStatement(sql);
@@ -26,7 +25,6 @@ public class StatistiquesDAO {
         return 0;
     }
 
-    // 2. Chiffre d'affaires total (Nombre de places * Tarif de la séance)
     public double getChiffreAffaires() {
         String sql = "SELECT SUM(r.nombre_places * s.tarif) AS total_revenus " +
                      "FROM Reservation r " +
@@ -41,7 +39,6 @@ public class StatistiquesDAO {
         return 0.0;
     }
 
-    // 3. Nombre total de films à l'affiche
     public int getTotalFilms() {
         String sql = "SELECT COUNT(*) AS total FROM Film";
         try (PreparedStatement stmt = connection.prepareStatement(sql);
@@ -53,7 +50,6 @@ public class StatistiquesDAO {
         return 0;
     }
 
-    // 4. Nombre total de clients inscrits
     public int getTotalClients() {
         String sql = "SELECT COUNT(*) AS total FROM Client";
         try (PreparedStatement stmt = connection.prepareStatement(sql);
@@ -65,7 +61,6 @@ public class StatistiquesDAO {
         return 0;
     }
 
-    // 5. POUR LE GRAPHIQUE HISTOGRAMME : Le Top 4 des films les plus vendus
     public Map<String, Integer> getTopFilms() {
         // On utilise un LinkedHashMap pour conserver l'ordre du classement (du 1er au dernier)
         Map<String, Integer> topFilms = new LinkedHashMap<>();
