@@ -63,14 +63,12 @@ public class CatalogueController {
         Button btnReserver = new Button("Voir les séances");
         btnReserver.getStyleClass().add("btn-reserver");
         
-        // --- LA MAGIE OPÈRE ICI : ON OUVRE LE POP-UP ---
         btnReserver.setOnAction(e -> handleReservation(film));
 
         card.getChildren().addAll(title, genre, duree, realisateur, btnReserver);
         return card;
     }
 
-    // --- LE FORMULAIRE DE RÉSERVATION ---
     private void handleReservation(Film film) {
         // On récupère les séances pour ce film précis
         List<Seance> seancesDisponibles = seanceDAO.listerSeancesParFilm(film.getIdFilm());
@@ -103,14 +101,12 @@ public class CatalogueController {
         Label titleLabel = new Label("Réserver : " + film.getTitre());
         titleLabel.getStyleClass().add("titre-login");
 
-        // 1. Liste déroulante des séances
         ComboBox<Seance> seanceBox = new ComboBox<>();
         seanceBox.getItems().addAll(seancesDisponibles);
         seanceBox.setPromptText("Choisissez une date et heure");
         seanceBox.setMaxWidth(Double.MAX_VALUE);
         seanceBox.getStyleClass().add("input-field");
         
-        // On formate l'affichage de la séance pour que ce soit joli pour le client
         seanceBox.setConverter(new StringConverter<Seance>() {
             @Override
             public String toString(Seance s) {
@@ -120,7 +116,6 @@ public class CatalogueController {
             @Override public Seance fromString(String string) { return null; }
         });
 
-        // 2. Sélecteur du nombre de places (Spinner de 1 à 10 places)
         Label placesLabel = new Label("Nombre de places :");
         placesLabel.setStyle("-fx-text-fill: #7f8c8d; -fx-font-weight: bold;");
         Spinner<Integer> placesSpinner = new Spinner<>(1, 10, 1);
@@ -130,7 +125,6 @@ public class CatalogueController {
         vbox.getChildren().addAll(titleLabel, seanceBox, placesLabel, placesSpinner);
         dialogPane.setContent(vbox);
 
-        // --- VALIDATION DE L'ACHAT ---
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == reserveBtnType) {
                 Seance seanceChoisie = seanceBox.getValue();
