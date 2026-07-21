@@ -5,19 +5,17 @@ import java.time.LocalTime;
 
 public class Seance {
     private int idSeance;
-    private int idFilm;   // Clé étrangère vers le Film
-    private int idSalle;  // Clé étrangère vers la Salle
+    private int idFilm;   
+    private int idSalle;
     private LocalDate dateProjection;
     private LocalTime heureDebut;
     private double tarif;
-    
-    // --- NOUVEAUX ATTRIBUTS POUR L'AFFICHAGE DANS LE TABLEAU ---
     private String titreFilm;
     private String nomSalle;
 
     public Seance() {}
 
-    // Constructeur pour l'insertion
+
     public Seance(int idFilm, int idSalle, LocalDate dateProjection, LocalTime heureDebut, double tarif) {
         this.idFilm = idFilm;
         this.idSalle = idSalle;
@@ -26,7 +24,6 @@ public class Seance {
         this.tarif = tarif;
     }
 
-    // NOUVEAU : Constructeur complet utilisé par le DAO pour lire la base de données
     public Seance(int idSeance, int idFilm, int idSalle, LocalDate dateProjection, LocalTime heureDebut, double tarif, String titreFilm, String nomSalle) {
         this.idSeance = idSeance;
         this.idFilm = idFilm;
@@ -37,8 +34,6 @@ public class Seance {
         this.titreFilm = titreFilm;
         this.nomSalle = nomSalle;
     }
-
-    // ... (Garde tes anciens getters et setters ici) ...
 
     public int getIdSeance() { return idSeance; }
     public void setIdSeance(int idSeance) { this.idSeance = idSeance; }
@@ -58,7 +53,6 @@ public class Seance {
     public double getTarif() { return tarif; }
     public void setTarif(double tarif) { this.tarif = tarif; }
 
-    // --- NOUVEAUX GETTERS / SETTERS ---
     public String getTitreFilm() { return titreFilm; }
     public void setTitreFilm(String titreFilm) { this.titreFilm = titreFilm; }
 
