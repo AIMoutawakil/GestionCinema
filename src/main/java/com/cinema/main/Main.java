@@ -1,6 +1,6 @@
 package com.cinema.main;
 
-import com.cinema.view.WelcomeView; // On importe la nouvelle vue
+import com.cinema.view.WelcomeView; 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,10 +9,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // ON LANCE LA VUE D'ACCUEIL MAINTENANT
         WelcomeView welcomeView = new WelcomeView(primaryStage);
         
-        Scene scene = new Scene(welcomeView.getView(), 600, 500); // Fenêtre un peu plus grande pour l'image
+        Scene scene = new Scene(welcomeView.getView(), 600, 500); 
         
         String css = this.getClass().getResource("/css/style.css").toExternalForm();
         scene.getStylesheets().add(css);
