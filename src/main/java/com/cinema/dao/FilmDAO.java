@@ -13,11 +13,9 @@ public class FilmDAO {
     private Connection connection;
 
     public FilmDAO() {
-        // On récupère la connexion unique créée à l'étape 3
         this.connection = DatabaseConnection.getConnection();
     }
 
-    // 1. Ajouter un nouveau film (Create)
     public boolean ajouterFilm(Film film) {
         String sql = "INSERT INTO Film (titre, genre, duree_minutes, realisateur, synopsis, chemin_affiche) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -36,7 +34,6 @@ public class FilmDAO {
         }
     }
 
-    // 2. Récupérer tous les films (Read)
     public List<Film> listerFilms() {
         List<Film> films = new ArrayList<>();
         String sql = "SELECT * FROM Film";
@@ -61,7 +58,6 @@ public class FilmDAO {
         return films;
     }
 
-    // 3. Mettre à jour un film existant (Update)
     public boolean modifierFilm(Film film) {
         String sql = "UPDATE Film SET titre = ?, genre = ?, duree_minutes = ?, realisateur = ?, synopsis = ?, chemin_affiche = ? WHERE id_film = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -81,7 +77,6 @@ public class FilmDAO {
         }
     }
 
-    // 4. Supprimer un film (Delete)
     public boolean supprimerFilm(int idFilm) {
         String sql = "DELETE FROM Film WHERE id_film = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
