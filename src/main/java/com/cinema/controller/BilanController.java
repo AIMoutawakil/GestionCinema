@@ -17,13 +17,13 @@ public class BilanController {
     }
 
     private void chargerStatistiques() {
-        // 1. Mise à jour des cartes KPI
+     
         view.getLblTotalTickets().setText(String.valueOf(statsDAO.getTotalTicketsVendus()));
         view.getLblChiffreAffaires().setText(statsDAO.getChiffreAffaires() + " MAD");
         view.getLblTotalFilms().setText(String.valueOf(statsDAO.getTotalFilms()));
         view.getLblTotalClients().setText(String.valueOf(statsDAO.getTotalClients()));
 
-        // 2. Mise à jour du graphique à barres
+        
         Map<String, Integer> topFilms = statsDAO.getTopFilms();
         
         XYChart.Series<String, Number> series = new XYChart.Series<>();
